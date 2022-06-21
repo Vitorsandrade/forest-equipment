@@ -9,46 +9,28 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "TB_EQUIPMENT")
-public class Equipment implements Serializable {
+@Table(name = "TB_EQUIPMENT_STATE")
+public class EquipmentState implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Long id;
 	private String name;
-	private EquipmentModel model;
+	private String color;
 	
-	
-	
-	public Equipment() {
-		
+	public EquipmentState() {
 	}
 
-	public Equipment(long id, String name, EquipmentModel model) {
+	public EquipmentState(Long id, String name, String color) {
 		super();
 		this.id = id;
 		this.name = name;
-		this.model = model;
+		this.color = color;
 	}
-
-
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
+	
+	
+	
+	
 }
