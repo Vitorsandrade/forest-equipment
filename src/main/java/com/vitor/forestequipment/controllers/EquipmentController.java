@@ -1,8 +1,10 @@
 package com.vitor.forestequipment.controllers;
 
-import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.BeanUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -12,39 +14,54 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.vitor.forestequipment.dtos.EquipmentDto;
 import com.vitor.forestequipment.entities.Equipment;
-import com.vitor.forestequipment.repositories.EquipmentRepository;
+import com.vitor.forestequipment.services.EquipmentService;
 
 @RestController
-@RequestMapping(value = "/api")
+@RequestMapping(value = "/api/equipment")
 public class EquipmentController {
 
-	@Autowired
-	EquipmentRepository equipmentRepository;
-
-	@GetMapping("/equipment")
-	public List<Equipment> listEquipment() {
-		return equipmentRepository.findAll();
+	final EquipmentService equipmentService;
+	
+	public EquipmentController(EquipmentService equipmentService) {
+		this.equipmentService = equipmentService;
 	}
 
-	@GetMapping("/equipment/{id}")
-	public Equipment EquipmentId(@PathVariable(value = "id") long id) {
-		return equipmentRepository.findById(id);
+	@GetMapping()
+	public ResponseEntity<Object> getAllEquipment() {
+		return ResponseEntity.status(HttpStatus.OK).body(equipmentService.findAll());
 	}
 
-	@PostMapping("/equipment")
-	public Equipment saveEquipment(@RequestBody Equipment equipment) {
-		return equipmentRepository.save(equipment);
+	@GetMapping("/{id}")
+	public ResponseEntity<Object> EquipmentId(@PathVariable(value = "id") long id) {
+		Optional<Equipment> equipmentOptional = equipmentService.findById(id);
+		return ResponseEntity.status(HttpStatus.OK).body(equipmentOptional.get());
 	}
 
-	@DeleteMapping("/equipment")
-	public void deleteEquipment(@RequestBody Equipment equipment) {
-		equipmentRepository.delete(equipment);
+	@PostMapping()
+	public ResponseEntity<Object> saveEquipment(@RequestBody EquipmentDto equipmentDto) {
+		var equipment = new Equipment();
+		BeanUtils.copyProperties(equipmentDto, equipment);
+		return ResponseEntity.status(HttpStatus.CREATED).body(equipmentService.save(equipment));
 	}
 
-	@PutMapping("/equipment")
-	public Equipment updateEquipment(@RequestBody Equipment equipment) {
-		return equipmentRepository.save(equipment);
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Object> deleteEquipment(@PathVariable(value = "id")long id) {
+		Optional<Equipment> equipmentOptional = equipmentService.findById(id);
+		equipmentService.delete(equipmentOptional.get());
+		return ResponseEntity.status(HttpStatus.OK).body("Equipment deleted sucessfully");
+	}
+
+	@PutMapping("/{id}")
+	public ResponseEntity<Object> updateEquipment(@PathVariable(value = "id")long id,
+												  @RequestBody EquipmentDto equipmentDto) {
+		  Optional<Equipment> equipmentOptional = equipmentService.findById(id);
+	        
+	        var equipment = equipmentOptional.get();
+	        BeanUtils.copyProperties(equipmentDto, equipment);
+	        equipment.setId(equipmentOptional.get().getId());
+	        return ResponseEntity.status(HttpStatus.OK).body(equipmentService.save(equipment));
 	}
 
 }

@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.vitor.forestequipment.entities.Equipment;
 import com.vitor.forestequipment.entities.EquipmentModel;
 import com.vitor.forestequipment.repositories.EquipmentModelRepository;
 
@@ -37,12 +36,12 @@ public class EquipmentModelController {
 	public EquipmentModel saveEquipmentModel(@RequestBody EquipmentModel equipmentModel) {
 		return equipmentModelRepository.save(equipmentModel);
 	}
-	
+
 	@DeleteMapping("/equipment/model")
 	public void deleteEquipmentModel(@RequestBody EquipmentModel equipmentModel) {
 		equipmentModelRepository.delete(equipmentModel);
 	}
-	
+
 	@PutMapping("/equipment/model")
 	public EquipmentModel updateEquipmentModel(@RequestBody EquipmentModel equipmentModel) {
 		return equipmentModelRepository.save(equipmentModel);

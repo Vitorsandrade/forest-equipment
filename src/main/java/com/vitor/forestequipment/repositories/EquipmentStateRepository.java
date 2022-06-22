@@ -6,4 +6,5 @@ import com.vitor.forestequipment.entities.EquipmentState;
 
 public interface EquipmentStateRepository extends JpaRepository<EquipmentState, Long> {
 
+	EquipmentState findById(long id);
 }
