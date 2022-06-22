@@ -13,13 +13,13 @@ import javax.persistence.Table;
 public class EquipmentState implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
 	private String color;
-	
+
 	public EquipmentState() {
 	}
 
@@ -29,8 +29,5 @@ public class EquipmentState implements Serializable {
 		this.name = name;
 		this.color = color;
 	}
-	
-	
-	
-	
+
 }

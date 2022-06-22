@@ -28,10 +28,11 @@ public class EquipmentModel implements Serializable {
 		this.id = id;
 		this.name = name;
 	}
-	
+
 	public Long getId() {
 		return id;
 	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

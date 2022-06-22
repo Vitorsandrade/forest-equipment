@@ -3,9 +3,11 @@ package com.vitor.forestequipment.controllers;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,26 +16,35 @@ import com.vitor.forestequipment.entities.Equipment;
 import com.vitor.forestequipment.repositories.EquipmentRepository;
 
 @RestController
-@RequestMapping(value="/api")
+@RequestMapping(value = "/api")
 public class EquipmentController {
 
 	@Autowired
 	EquipmentRepository equipmentRepository;
-	
-	
+
 	@GetMapping("/equipment")
-	public List<Equipment> listEquipments(){
+	public List<Equipment> listEquipment() {
 		return equipmentRepository.findAll();
 	}
-	
+
 	@GetMapping("/equipment/{id}")
-	public Equipment EquipmentId(@PathVariable(value="id") long id){
+	public Equipment EquipmentId(@PathVariable(value = "id") long id) {
 		return equipmentRepository.findById(id);
 	}
-	
+
 	@PostMapping("/equipment")
 	public Equipment saveEquipment(@RequestBody Equipment equipment) {
 		return equipmentRepository.save(equipment);
 	}
-	
+
+	@DeleteMapping("/equipment")
+	public void deleteEquipment(@RequestBody Equipment equipment) {
+		equipmentRepository.delete(equipment);
+	}
+
+	@PutMapping("/equipment")
+	public Equipment updateEquipment(@RequestBody Equipment equipment) {
+		return equipmentRepository.save(equipment);
+	}
+
 }
