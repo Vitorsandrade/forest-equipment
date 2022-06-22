@@ -30,7 +30,7 @@ public class Equipment implements Serializable {
 		super();
 		this.id = id;
 		this.name = name;
-		this.model = model;
+		this.setModel(model);
 	}
 
 
@@ -49,6 +49,14 @@ public class Equipment implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public EquipmentModel getModel() {
+		return model;
+	}
+
+	public void setModel(EquipmentModel model) {
+		this.model = model;
 	}
 
 }
