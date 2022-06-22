@@ -18,7 +18,6 @@ public class EquipmentModel implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	private String name;
-	
 
 	public EquipmentModel() {
 
@@ -29,8 +28,14 @@ public class EquipmentModel implements Serializable {
 		this.id = id;
 		this.name = name;
 	}
-
 	
+	public Long getId() {
+		return id;
+	}
+	public void setId(Long id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}

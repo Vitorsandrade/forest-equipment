@@ -19,11 +19,9 @@ public class Equipment implements Serializable {
 	private long id;
 	private String name;
 	private EquipmentModel model;
-	
-	
-	
+
 	public Equipment() {
-		
+
 	}
 
 	public Equipment(long id, String name, EquipmentModel model) {
@@ -32,8 +30,6 @@ public class Equipment implements Serializable {
 		this.name = name;
 		this.setModel(model);
 	}
-
-
 
 	public long getId() {
 		return id;
